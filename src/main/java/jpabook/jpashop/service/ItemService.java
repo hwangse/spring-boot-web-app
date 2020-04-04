@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.controller.ItemUpdateDTO;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,16 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item){
         itemRepository.save(item);
+    }
+
+    // 수정 (업데이트)
+    @Transactional
+    public void updateItem(Long itemId, ItemUpdateDTO dto){
+        Item item = itemRepository.findOne(itemId);
+
+        item.setName(dto.getName());
+        item.setPrice(dto.getPrice());
+        item.setStockQuantity(dto.getStockQuantity());
     }
 
     // 조회
